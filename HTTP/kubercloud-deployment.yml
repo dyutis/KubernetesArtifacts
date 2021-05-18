@@ -21,5 +21,19 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          failureThreshold: 10
+          periodSeconds: 10
+          initialDelaySeconds: 10		  
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          failureThreshold: 10
+          periodSeconds: 10
+          initialDelaySeconds: 10
       imagePullSecrets:
       - name: pullimagekey
