@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: 
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+  name: kubercloud-ingress
+  namespace: kubernetes-demo
+spec: 
+  rules: 
+    - host: mysbapp.snicloud.xyz
+      http: 
+        paths: 
+          - backend: 
+              service:
+                name: kubercloud-service
+                port: 
+                  number: 80
+            path: /
+            pathType: Prefix
