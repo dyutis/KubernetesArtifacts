@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-deployment
+  namespace: jenkins-demo
+  labels:
+    app: jenkinsdeployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkinscont
+  template:
+    metadata:
+      labels:
+        app: jenkinscont    
+    spec:
+      volumes:
+        - name: myvolume
+          configMap: 
+            name: jenkins-configmapvolume
+            items:
+              - key: TraefikInfo.txt
+                path: TraefikInfo.txt
+              - key: publickey.txt
+                path: publickey.txt
+      containers:
+      - name: jenkinspod
+        image: jenkins/jenkins:jdk11
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: myvolume
+            mountPath: /var/jenkins_home/workspace
+        ports:
+        - containerPort: 8080
+        env:
+          - name: JENKINS_CUSTOMCONFIGNAME
+            valueFrom:
+              configMapKeyRef:
+                name: jenkins-configmap
+                key: myjenkinsname
+          - name: JENKINS_CUSTOMSECRET
+            valueFrom:
+              secretKeyRef:
+                name: jenkins-secret
+                key: myjenkinspwd

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-configmapvolume
+  namespace: jenkins-demo
+data:
+   TraefikInfo.txt: |
+    This is my first jenkins cloud app
+   publickey.txt: |
+    This is my first publickey jenkins
