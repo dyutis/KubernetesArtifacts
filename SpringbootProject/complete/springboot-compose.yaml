@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  myspringcontainer:
+    build:
+	  context: .
+	  dockerfile: SpringDockerFile
+	image: myspringbootimage:1.1
+	ports:
+      - "8082:8080"
+	container_name: myspringcontainer
+	  
