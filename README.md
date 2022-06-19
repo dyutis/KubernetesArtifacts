@@ -1,5 +1,5 @@
 # katacodarep
 
-[]: # (This is a comment)
+[//]: # test
 
 
